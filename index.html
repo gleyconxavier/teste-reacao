@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-Language" content="pt-br">
+	<title>Teste Reação 1.0</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			color: lightgreen;
+			background-color: #222;
+		}
+		
+		#shape {
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			display: none;
+			position: relative;
+		}
+		
+		footer {
+			position: fixed;
+			bottom: 0px;
+			left: 0px;
+			text-align: center;
+			border: 2px solid lightgreen;
+			width: 100%;
+			height: auto;
+			font-family: sans-serif;
+			font-weight: bolder;
+			color: lightgreen;
+			background-color: #000;
+		}
+		
+	</style>
+</head>
+
+<body>
+
+	<h1>Teste a sua reação!</h1>
+	<h2>Clique o mais rápido que conseguir nos objetos.</h2>
+	<p>Melhor tempo: <strong><span id="maxTime"></span></strong></p>
+	<p>Tempo atual: <strong><span id="timeTaken"></span></strong></p>
+
+	<div id="shape"></div>
+	
+	<footer>Gleycon Xavier | 2019</footer>
+	<script type="text/javascript">
+		
+		alert("Este app não foi desenvolvido para dispositivos móveis!");
+		
+		var start = new Date().getTime();
+		let maxTime = 1;
+		
+		function getRandomColor() {
+			var letters = '012345679ABCDEF'.split('');
+			var color = '#';
+			for(var i = 0; i < 6; i++ ) {
+				color += letters[Math.floor(Math.random() * 16)];
+			}
+			return color;
+		}
+		
+		function makeShapeAppear() {
+			var top = Math.random() * 400;
+			var left = Math.random() * 400;
+			var width = (Math.random() * 200) + 100;
+			
+			if(Math.random() > 0.5) {
+				document.getElementById("shape").style.borderRadius = "50%";
+			} else {
+				document.getElementById("shape").style.borderRadius = "0";
+			}
+			document.getElementById("shape").style.backgroundColor = getRandomColor();
+			document.getElementById("shape").style.width = width + "px";
+			document.getElementById("shape").style.height = width + "px";
+			document.getElementById("shape").style.top = top + "px";
+			document.getElementById("shape").style.left = left + "px";
+			document.getElementById("shape").style.display = "block";
+			start = new Date().getTime();
+		}
+		
+		function appearAfterDelay() {
+		
+			setTimeout(makeShapeAppear, Math.random() * 2000);
+		
+		}
+		
+		appearAfterDelay();
+		
+		document.getElementById("shape").onclick = function() {
+			document.getElementById("shape").style.display = "none";
+			let end = new Date().getTime();
+		
+			let timeTaken = (end - start) / 1000;
+			
+			document.getElementById("timeTaken").innerHTML = timeTaken + "s";
+			document.getElementById("maxTime").innerHTML = maxTime + "s";
+			
+			appearAfterDelay();
+			
+			if(maxTime >= timeTaken) {
+			maxTime = timeTaken;
+		}
+		
+		
+		}
+		
+	</script>
+</body>
+
+</html>
